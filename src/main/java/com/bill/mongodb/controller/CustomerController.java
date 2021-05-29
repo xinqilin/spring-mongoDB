@@ -1,6 +1,7 @@
 package com.bill.mongodb.controller;
 
 import com.bill.mongodb.entity.Customer;
+import com.bill.mongodb.exception.CustomerException;
 import com.bill.mongodb.service.CustomerService;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,14 @@ public class CustomerController {
 
     @GetMapping("/id/{id}")
     public Customer getById(@PathVariable("id") String id) {
-        if (Strings.isNullOrEmpty(id)) throw new IllegalArgumentException();
+        if (Strings.isNullOrEmpty(id)) throw new CustomerException("400", "id is null or empty");
 
         return customerService.getById(id);
     }
 
     @GetMapping("/name/{name}")
     public Customer getByName(@PathVariable("name") String name) {
-        if (Strings.isNullOrEmpty(name)) throw new IllegalArgumentException();
+        if (Strings.isNullOrEmpty(name)) throw new CustomerException("400", "name is null or empty");
 
         return customerService.getByName(name);
     }
@@ -46,7 +47,8 @@ public class CustomerController {
 
     @PostMapping("/add")
     public Customer addCustomer(@RequestBody Customer customer) {
-        if (customer == null) throw new IllegalArgumentException();
+        if (customer == null) throw new IllegalArgumentException("null value");
+        if (Strings.isNullOrEmpty(customer.name)) throw new CustomerException("400", "producer args is null or empty");
         return customerService.add(customer);
     }
 
