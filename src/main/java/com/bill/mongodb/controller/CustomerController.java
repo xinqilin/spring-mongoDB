@@ -45,6 +45,11 @@ public class CustomerController {
         return customerService.getByAge(age);
     }
 
+    @GetMapping("/age/{age}/page")
+    public List<Customer> getCustomerByAgeWithPage(@PathVariable int age) {
+        return customerService.getByAgeWithPage(age);
+    }
+
     @PostMapping("/add")
     public Customer addCustomer(@RequestBody Customer customer) {
         if (customer == null) throw new IllegalArgumentException("null value");

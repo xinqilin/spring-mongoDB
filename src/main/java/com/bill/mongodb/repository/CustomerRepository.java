@@ -1,6 +1,8 @@
 package com.bill.mongodb.repository;
 
 import com.bill.mongodb.entity.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +15,6 @@ public interface CustomerRepository extends MongoRepository<Customer, String> {
     public Optional<Customer> findByName(String name);
 
     public List<Customer> findByAge(int age);
+
+    public Page<Customer> findByAge(int age, Pageable pageable);
 }
